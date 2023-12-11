@@ -170,10 +170,10 @@ local function start(tr, trace, self, plySteam64)
     timer.Simple(GetConVar("ttt_ofb_duration"):GetFloat(), function() kill(index) end)
 end
 
-AccessorFuncDT(SWEP, "charge", "Charge")
+AccessorFunc(SWEP, "charge", "Charge")
 
 function SWEP:SetupDataTables()
-    self:DTVar("Float", 0, "charge")
+    self:NetworkVar("Float", 0, "charge")
 end
 
 function SWEP:Initialize()
