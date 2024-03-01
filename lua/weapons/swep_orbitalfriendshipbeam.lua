@@ -262,7 +262,7 @@ function SWEP:Reload()
 end
 
 function SWEP:PrimaryAttack()
-    local tr = self.Owner:GetEyeTrace()
+    local tr = self:GetOwner():GetEyeTrace()
     local tracedata = {}
 	
     tracedata.start = tr.HitPos + Vector(0,0,0)
@@ -276,7 +276,7 @@ function SWEP:PrimaryAttack()
     end
     
     if hitsky == true then
-	self.Owner:SetAnimation(PLAYER_ATTACK1)
+	self:GetOwner():SetAnimation(PLAYER_ATTACK1)
         self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
         self:EmitSound(ShootSound)
     else
@@ -286,7 +286,7 @@ function SWEP:PrimaryAttack()
     if (SERVER) then 
         if hitsky == true then
             self:TakePrimaryAmmo(1)
-            local ply = self.Owner:SteamID64()
+            local ply = self:GetOwner():SteamID64()
             timer.Simple(GetConVar("ttt_ofb_startDelay"):GetFloat(), function() start(tr, trace, self, ply) end)
         end
     end
@@ -508,7 +508,7 @@ do
         local rad = 256
         local targets2 = ents.FindInSphere(self:GetPos(), rad)
         local pos = self:GetPos()
-        if self.OrbitalFriendshipBeam and self.Owner then
+        if self.OrbitalFriendshipBeam and self:GetOwner() then
             local inf = ents.Create("swep_orbitalfriendshipbeam")
             for k, f in pairs(targets2) do
                 if (IsValid(f) and f:IsPlayer() and f:Alive()) then
@@ -517,8 +517,8 @@ do
                     local dmginfo = DamageInfo()
                     dmginfo:SetInflictor(inf)
                     dmginfo:SetDamage(dmg)
-                    local ply = player.GetBySteamID64(self.Owner)
-                    --print("Ply", ply, self.Owner)
+                    local ply = player.GetBySteamID64(self:GetOwner())
+                    --print("Ply", ply, self:GetOwner())
                     if ply then
                         dmginfo:SetAttacker(ply)
                     end
