@@ -229,7 +229,7 @@ function SWEP:ViewModelDrawn()
     surface.DrawOutlinedRect(0, 0, 50, 15)
 
     local sz = 48
-    local next = self.Weapon:GetNextPrimaryFire()
+    local next = self:GetNextPrimaryFire()
     local ready = (next - CurTime()) <= 0
     local frac = 1.0
     if not ready then
